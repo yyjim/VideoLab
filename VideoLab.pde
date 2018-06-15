@@ -5,12 +5,19 @@ import java.util.TimerTask;
 
 Grid grid;
 ArrayList<AniSequence> animations = new ArrayList();
-float DURATION = 0.5;
+float DURATION = 1;
 Rect[][] ANIMATION_RECTS = {
-  {new Rect(0.00, 0.0, 1.0, 0.25), new Rect(0.0, 0.25, 0.50, 0.75), new Rect(0.50, 0.25, 0.50, 0.75)}, 
-  {new Rect(0.00, 0.0, 1.0, 0.50), new Rect(0.0, 0.50, 0.50, 0.50), new Rect(0.50, 0.50, 0.50, 0.50)}, 
-  {new Rect(0.50, 0.0, 0.5, 0.25), new Rect(0.0, 0.00, 0.50, 1.00), new Rect(0.50, 0.25, 0.50, 0.75)}, 
-  {new Rect(0.75, 0.0, 0.25, 0.25), new Rect(0.0, 0.00, 0.75, 1.00), new Rect(0.75, 0.25, 0.25, 0.75)}      
+  //{new Rect(0.00, 0.0, 1.0, 0.25), new Rect(0.0, 0.25, 0.50, 0.75), new Rect(0.50, 0.25, 0.50, 0.75)}, 
+  //{new Rect(0.00, 0.0, 1.0, 0.50), new Rect(0.0, 0.50, 0.50, 0.50), new Rect(0.50, 0.50, 0.50, 0.50)}, 
+  //{new Rect(0.50, 0.0, 0.5, 0.25), new Rect(0.0, 0.00, 0.50, 1.00), new Rect(0.50, 0.25, 0.50, 0.75)}, 
+  //{new Rect(0.75, 0.0, 0.25, 0.25), new Rect(0.0, 0.00, 0.75, 1.00), new Rect(0.75, 0.25, 0.25, 0.75)}
+  // A, B, C
+  {new Rect(0.00, 0.00, 1.00, 1.00), new Rect(0.00, 1.00, 0.50, 0.50), new Rect(0.50, 1.00, 0.50, 0.50)}, 
+  {new Rect(0.00, 0.00, 1.00, 0.50), new Rect(0.00, 0.50, 0.50, 0.50), new Rect(0.50, 0.50, 0.50, 0.50)}, 
+  {new Rect(0.00, -0.5, 1.00, 0.50), new Rect(0.00, 0.00, 0.50, 1.00), new Rect(0.50, 0.00, 0.50, 1.00)}, 
+  {new Rect(-1.5, 0.50, 1.00, 0.50), new Rect(0.00, 0.00, 0.50, 0.50), new Rect(0.50, 0.00, 0.50, 0.50)}, 
+  {new Rect(0.00, 0.50, 1.00, 0.50), new Rect(0.00, 0.00, 0.50, 0.50), new Rect(0.50, 0.00, 0.50, 0.50)}, 
+  {new Rect(0.00, 0.00, 1.00, 1.00), new Rect(0.00, -0.5, 0.50, 0.50), new Rect(0.50, -0.5, 0.50, 0.50)}, 
 };
 int index = 0;
 
@@ -35,37 +42,13 @@ Grid createGrid() {
 
   ArrayList<Slot> slotList = new ArrayList();
 
-  slotList.add(new Slot(new Rect(0.0, 0.0, 1.0, 0.5), color(255, 0, 0), new Movie(this, "v1.mp4")));
-  slotList.add(new Slot(new Rect(0.0, 0.5, 0.5, 0.5), color(0, 255, 0), new Movie(this, "v1.mp4")));
-  slotList.add(new Slot(new Rect(0.5, 0.5, 0.5, 0.5), color(0, 0, 255), new Movie(this, "v1.mp4")));
+  slotList.add(new Slot(ANIMATION_RECTS[0][0], color(255, 0, 0), new Movie(this, "v1.mp4")));
+  slotList.add(new Slot(ANIMATION_RECTS[0][1], color(0, 255, 0), new Movie(this, "v1.mp4")));
+  slotList.add(new Slot(ANIMATION_RECTS[0][2], color(0, 0, 255), new Movie(this, "v1.mp4")));
 
   Slot[] slots = slotList.toArray(new Slot[0]);
   return new Grid(slots);
 }
-
-//void setupAnimation(Grid grid) {
-//  Rect[][] arrayOfRects = {
-//    {new Rect(0.00, 0.0, 1.0, 0.25), new Rect(0.0, 0.25, 0.50, 0.75), new Rect(0.5, 0.25, 0.50, 0.75)}, 
-//    {new Rect(0.00, 0.0, 1.0, 0.50), new Rect(0.0, 0.50, 0.50, 0.50), new Rect(0.5, 0.5, 0.50, 0.50)}, 
-//    {new Rect(0.50, 0.0, 0.5, 0.25), new Rect(0.0, 0.00, 0.50, 1.00), new Rect(0.5, 0.25, 0.50, 0.75)}, 
-//    {new Rect(0.75, 0.0, 0.25, 0.25), new Rect(0.0, 0.5, 0.75, 1.00), new Rect(0.75, 0.25, 0.25, 0.75)}      
-//  };
-//  float duration = 0.5;
-//  for (Rect[] rects : arrayOfRects) {
-//    AniSequence seq = new AniSequence(this);
-//    seq.beginSequence();
-//    seq.beginStep();
-//    for (int i = 0; i < rects.length; i++) {
-//      Slot slot = grid.slots[i];
-//      Rect rect = rects[i];
-//      Ani[] anis = Ani.to(slot.rect, duration, rect.getString());
-//      seq.add(anis);
-//    }
-//    seq.endStep();
-//    seq.endSequence();    
-//    animations.add(seq);
-//  }
-//}
 
 void draw() {
   background(255);

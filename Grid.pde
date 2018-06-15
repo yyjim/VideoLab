@@ -17,9 +17,10 @@ class Slot {
     this.rect = rect;
     this.backgroundColor = backgroundColor;
     this.movie = movie;
-
-    this.movie.play();
-    this.movie.loop();
+    
+    movie.play();    
+    //movie.jump(random(movie.duration()));
+    movie.loop();
   }
 
   void vertext(Point vertex, Point uv) {
