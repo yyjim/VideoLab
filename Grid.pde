@@ -16,11 +16,7 @@ class Slot {
   public Slot(Rect rect, color backgroundColor, Movie movie) {
     this.rect = rect;
     this.backgroundColor = backgroundColor;
-    this.movie = movie;
-    
-    movie.play();    
-    //movie.jump(random(movie.duration()));
-    movie.loop();
+    this.movie = movie;    
   }
 
   void vertext(Point vertex, Point uv) {
